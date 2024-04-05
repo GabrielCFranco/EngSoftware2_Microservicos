@@ -59,6 +59,18 @@ app.get('/product/:id', (req, res, next) => {
     });
 });
 
+//Alternativa 4), API para inserir livros
+app.post('/product/new/', (req, res) => {
+    let book = req.body
+    inventory.InsertNewBook(book, (err,product) =>{
+        if(err) {
+            console.error(err);
+            res.status(500).send({error: 'something failed :('});
+        } else {
+            res.json(product);
+        }
+    })
+});
 /**
  * Inicia o router
  */

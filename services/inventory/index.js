@@ -26,6 +26,13 @@ server.addService(inventoryProto.InventoryService.service, {
             products.find((product) => product.id == payload.request.id)
         );
     },
+    InsertNewBook: (payload, callback) => {
+        let product = payload.request
+
+        product.id = products.length+1
+        products.push(product)
+        callback(null,product)
+    }
 });
 
 server.bindAsync('127.0.0.1:3002', grpc.ServerCredentials.createInsecure(), () => {
