@@ -52,6 +52,29 @@ function calculateShipping(id, cep) {
         });
 }
 
+function findById() {
+    let id = document.getElementById("buscaID").value
+    fetch('http://localhost:3000/product/' + id)
+        .then((data) => {
+            if (data.ok) {
+                console.log("FRANCO")
+                return data.json();
+            }
+            throw data.statusText;
+        })
+        .then((data) => {
+            swal({
+                title: data.name,
+                text: `Autor: ${data.author}; Preço: ${data.price}`,
+                icon: data.photo,
+              });/*fazer*/
+        })
+        .catch((err) => {
+            swal('Erro', 'Erro ao consultar o livro', 'error');
+            console.error(err);
+        });
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     const books = document.querySelector('.books');
 
